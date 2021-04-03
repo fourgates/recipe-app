@@ -10,11 +10,13 @@ import { RecipeComponent } from './recipe/recipe.component';
 
 // MOVE ME
 import { ReactiveFormsModule } from '@angular/forms';
+import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipeComponent
+    RecipeComponent,
+    RecipeSearchComponent
   ],
   imports: [
     BrowserModule,
