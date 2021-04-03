@@ -4,8 +4,8 @@ import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
 const routes: Routes = [
-  { path: 'recipe', component: RecipeComponent },
-  { path: 'search', component: RecipeSearchComponent },
+  { path: 'recipe', component: RecipeComponent, data:{title: 'My Recipe'}},
+  { path: 'search', component: RecipeSearchComponent, data:{title: 'Find a Recipe'}},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
