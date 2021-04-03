@@ -1,0 +1,148 @@
+<div>
+    <div class="md:grid md:grid-cols-4 md:gap-6">
+      <div class="md:col-span-1">
+        <div class="px-4 sm:px-0">
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700">
+              Recipe photo
+            </label>
+            <div >
+                <img class="rounded-full" src="https://img.hellofresh.com/c_fit,f_auto,fl_lossy,h_1100,q_auto,w_2600/hellofresh_s3/image/personal-pizzas-de87b8da.jpg">
+            </div>
+            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+              <div class="space-y-1 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div class="flex text-sm text-gray-600">
+                  <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                    <span>Upload a file</span>
+                    <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                  </label>
+                  <p class="pl-1">or drag and drop</p>
+                </div>
+                <p class="text-xs text-gray-500">
+                  PNG, JPG, GIF up to 10MB
+                </p>
+              </div>
+            </div>
+          </div>          
+        </div>
+      </div>
+      <div class="mt-5 md:mt-0 md:col-span-3">
+        <form [formGroup]="recipeForm">
+          <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <form class="grid grid-cols-12 gap-4">
+                    <!-- first row-->
+                    <div class="col-span-8">
+                        <label for="recipe_name" class="app-input-label">Recipe Name</label>
+                        <input type="text" name="recipe_name" id="recipe_name" autocomplete="given-name" class="app-input"
+                        formControlName="recipeName">      
+                    </div>
+                    <div class="col-span-4">
+                        <label for="category" class="app-input-label">Category</label>
+                        <input type="text" name="category" id="category" autocomplete="given-name" class="app-input"
+                        formControlName="category">      
+                    </div>
+                    <!-- second row-->
+                    <div class="col-span-4">
+                        <label for="rating" class="app-input-label">Ratings</label>
+                        <input type="text" name="rating" id="rating" autocomplete="given-name" 
+                        class="app-input" formControlName="rating">                          
+                    </div>
+                    <div class="col-span-4">
+                        <label for="servings" class="app-input-label">Servings</label>
+                        <input type="text" name="servings" id="servings" autocomplete="given-name" 
+                        class="app-input" formControlName="servings">                              
+                    </div>
+                    <div class="col-span-4">
+                        <label for="difficulty" class="app-input-label">Difficulty</label>
+                        <input type="text" name="difficulty" id="difficulty" autocomplete="given-name" 
+                        class="app-input" formControlName="difficulty">               
+                    </div>
+                    <!-- third row-->
+                    <div class="col-span-4">            
+                        <label for="prep-time" class="app-input-label">Prep Time</label>
+                        <input type="text" name="prep-time" id="prep-time" autocomplete="given-name" 
+                        class="app-input" formControlName="prepTime">                        
+                    </div>
+                    <div class="col-span-4">
+                        <label for="cook-time" class="app-input-label">Cook Time</label>
+                        <input type="text" name="cook-time" id="cook-time" autocomplete="given-name" 
+                        class="app-input" formControlName="cookTime">     
+                    </div>
+                    <div class="col-span-4">
+                        <label for="total-time" class="app-input-label">Total Time</label>
+                        <input type="text" name="total-time" id="total-time" autocomplete="given-name" 
+                        class="app-input" formControlName="totalTime">                        
+                    </div>        
+                    <!-- fourth row-->
+                    <div class="col-span-6">          
+                        <label for="source" class="app-input-label">Source</label>
+                        <input type="text" name="source" id="source" autocomplete="given-name" 
+                        class="app-input" formControlName="source">                                    
+                    </div>
+                    <div class="col-span-6">
+                        <label for="source-url" class="app-input-label">Source URL</label>
+                        <input type="text" name="source-url" id="source-url" autocomplete="given-name" 
+                        class="app-input" formControlName="sourceUrl">                                 
+                    </div>            
+                  </form>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+<div class="hidden sm:block" aria-hidden="true">
+    <div class="py-5">
+        <div class="border-t border-gray-200"></div>
+    </div>
+</div>
+  
+<!-- recipe details -->
+<div class="md:grid md:grid-cols-6 md:gap-6" *ngIf="recipe">
+    <div class="shadow overflow-hidden sm:rounded-lg col-span-1">
+        <div class="px-4 sm:px-6 bg-gray-100">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 no-margin">
+            Ingredients
+          </h3>
+        </div>
+        <div class="bg-white border-gray-200">
+            <div class="px-4 py-3 pl-5">
+                <ul class="list-disc">
+                    <li *ngFor="let ingredient of recipe.ingredients" class="p-1">
+                        {{ingredient}}
+                    </li>
+                </ul>
+            </div>
+        </div>    
+      </div>
+      <div class="shadow overflow-hidden sm:rounded-lg col-span-5">
+        <div class="px-4 sm:px-6 bg-gray-100">
+          <h3 class="text-lg leading-6 font-medium text-gray-900 no-margin">
+            Directions
+          </h3>
+        </div>
+        <div class="bg-white border-gray-200">
+            <div class="px-4 py-3 pl-5">
+                <ul class="list-decimal">
+                    <li *ngFor="let step of recipe.steps" class="p-2">
+                        {{step}}                        
+                    </li>
+                </ul>
+            </div>
+        </div>                   
+      </div>      
+</div>
+
+  
+  
