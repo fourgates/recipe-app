@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-search',
@@ -8,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipeSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  goToRecipe(){
+    this.router.navigate(['/recipe']);
+  }
 }
