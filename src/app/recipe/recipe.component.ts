@@ -60,6 +60,16 @@ export class RecipeComponent implements OnInit {
       ]
     }
     this.recipeForm.patchValue(this.recipe);
+    this.recipeForm.disable();
   }
 
+  edit(){
+    this.recipeForm.enable();
+  }
+  cancel(){
+    this.recipeForm.disable();
+  }
+  save(){
+    this.recipeForm.disable();
+  }
 }
