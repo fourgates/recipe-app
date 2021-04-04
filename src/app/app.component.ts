@@ -9,6 +9,7 @@ import { ActivatedRoute, ActivationStart, Router } from '@angular/router';
 export class AppComponent implements OnInit{
   title = 'recipe-app';
   showMenu = false;
+  showUserMenu = false;
   constructor(private router: Router){}
   ngOnInit(): void {
     this.router.events.subscribe(e =>{
@@ -23,4 +24,7 @@ export class AppComponent implements OnInit{
   toggleNavbar(){
     this.showMenu = !this.showMenu;
   }
+  toggleUserNavbar(){
+    this.showUserMenu = !this.showUserMenu;
+  }  
 }
