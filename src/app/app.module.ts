@@ -11,12 +11,14 @@ import { RecipeComponent } from './recipe/recipe.component';
 // MOVE ME
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeComponent,
-    RecipeSearchComponent
+    RecipeSearchComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,8 @@ export class AppComponent implements OnInit{
           this.title = e.snapshot.data.title;
         }
       }
+      this.showMenu = false;
+      this.showUserMenu = false;
     })
   }
   
