@@ -18,10 +18,11 @@ export class CalendarComponent implements OnInit {
   openEventModal = false;
   event_date: string | undefined;
   themes: any[]= [];
+  recipes: any[] = [];
   selectedDate: number | undefined;
   events = [
     {
-      event_date: new Date(2020, 3, 1),
+      event_date: new Date(2021, 3, 1),
       event_title: "April Fool's Day",
       event_theme: 'blue'
     },
@@ -39,6 +40,7 @@ export class CalendarComponent implements OnInit {
     }
   ];
   event_theme = 'blue';
+  event_recipe = '';
   constructor() { 
     let today = new Date();
     this.month = today.getMonth();
@@ -48,26 +50,25 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.initDate();
     this.getNoOfDays();
+    this.recipes = [
+      {recipeName: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1}
+    ]
     this.themes = [
       {
         value: "blue",
-        label: "Blue Theme"
+        label: "Lunch"
       },
       {
         value: "red",
-        label: "Red Theme"
+        label: "Breakfast"
       },
       {
         value: "yellow",
-        label: "Yellow Theme"
+        label: "Dinner"
       },
       {
         value: "green",
-        label: "Green Theme"
-      },
-      {
-        value: "purple",
-        label: "Purple Theme"
+        label: "Other"
       }
     ];   
   }
@@ -127,6 +128,9 @@ export class CalendarComponent implements OnInit {
   changeEvent(e: any){
     console.log('e', e.value);
     this.event_theme = e;
+  }
+  changeRecipe(e: any){
+    console.log('e', e.value);
   }
   test(date: number){      
     return this.events.filter(e => {

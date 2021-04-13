@@ -12,6 +12,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { CalendarComponent } from './calendar/calendar.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
