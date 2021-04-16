@@ -124,4 +124,13 @@ export class CalendarComponent implements OnInit {
     this.month++; 
     this.getNoOfDays();
   }  
+  selectRecipe(e: any, date: number){
+    this.eventRecipe = e.eventRecipe;
+    this.eventTheme = e.eventTheme;
+
+    this.selectedDate = date;
+    this.recipeDate = new Date(this.year, this.month, date).toDateString();
+    
+    this.openEventModal = true;
+  }
 }

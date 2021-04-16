@@ -77,7 +77,8 @@
 
 									<ng-container *ngFor="let event of getEventsForDate(date)">
 										<div
-										class="px-2 py-1 rounded-lg mt-1 overflow-hidden border"
+										class="px-2 py-1 rounded-lg mt-1 overflow-hidden border cursor-pointer"
+										(click)="selectRecipe(event, date)"
 										[ngClass]="{
 											'border-blue-200 text-blue-800 bg-blue-100': event.eventTheme.value === 'blue',
 											'border-red-200 text-red-800 bg-red-100': event.eventTheme.value === 'red',
