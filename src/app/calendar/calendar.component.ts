@@ -5,79 +5,64 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss']
 })
-export class CalendarComponent implements OnInit {
   // ported from alpine.js from
   // https://tailwindcomponents.com/component/calendar-ui-with-tailwindcss-and-alpinejs
+export class CalendarComponent implements OnInit {
   MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  no_of_days: number[] = [];
+  noOfDays: number[] = [];
   blankdays: number[] = [];
   month: number = 0;
   year: number;
   datepickerValue: string | undefined;
   openEventModal = false;
-  event_date: string | undefined;
-  themes: any[]= [];
-  recipes: any[] = [];
+  recipeDate: string | undefined;
   selectedDate: number | undefined;
+  eventTheme :any;
+  eventRecipe :any;
+
+  recipes = [
+    {recipeName: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1},
+    {recipeName: 'Cheeseburger', recipeId: 2}
+  ];
+  themes = [
+    {
+      value: "blue",
+      label: "Lunch"
+    },
+    {
+      value: "red",
+      label: "Breakfast"
+    },
+    {
+      value: "yellow",
+      label: "Dinner"
+    },
+    {
+      value: "green",
+      label: "Other"
+    }
+  ];     
   events = [
     {
-      event_date: new Date(2021, 3, 1),
-      event_title: "April Fool's Day",
-      event_theme: 'blue'
+      eventDate: new Date(2021, 3, 1),
+      eventRecipe: this.recipes[0],
+      eventTheme: this.themes[0]
     },
-
-    {
-      event_date: new Date(2020, 3, 10),
-      event_title: "Birthday",
-      event_theme: 'red'
-    },
-
-    {
-      event_date: new Date(2020, 3, 16),
-      event_title: "Upcoming Event",
-      event_theme: 'green'
-    }
   ];
-  event_theme = 'blue';
-  event_recipe = '';
-  constructor() { 
-    let today = new Date();
-    this.month = today.getMonth();
-    this.year = today.getFullYear();
-  }
 
-  ngOnInit(): void {
-    this.initDate();
-    this.getNoOfDays();
-    this.recipes = [
-      {recipeName: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1}
-    ]
-    this.themes = [
-      {
-        value: "blue",
-        label: "Lunch"
-      },
-      {
-        value: "red",
-        label: "Breakfast"
-      },
-      {
-        value: "yellow",
-        label: "Dinner"
-      },
-      {
-        value: "green",
-        label: "Other"
-      }
-    ];   
-  }
-  initDate() {
+  constructor() { 
     let today = new Date();
     this.month = today.getMonth();
     this.year = today.getFullYear();
     this.datepickerValue = new Date(this.year, this.month, today.getDate()).toDateString();
   }
+
+  ngOnInit(): void {
+    this.getNoOfDays();
+
+  }
+
   getNoOfDays(){
     let daysInMonth = new Date(this.year, this.month + 1, 0).getDate();
 
@@ -94,7 +79,7 @@ export class CalendarComponent implements OnInit {
     }
     
     this.blankdays = blankdaysArray;
-    this.no_of_days = daysArray;    
+    this.noOfDays = daysArray;    
   }
   isToday(date: number) {
     const today = new Date();
@@ -103,10 +88,11 @@ export class CalendarComponent implements OnInit {
     return today.toDateString() === d.toDateString() ? true : false;
   }
   addEvent(){ 
+    debugger;
     this.events.push({
-      event_date: new Date(this.year, this.month, this.selectedDate),
-      event_title: "April Fool's Day",
-      event_theme: this.event_theme
+      eventDate: new Date(this.year, this.month, this.selectedDate),
+      eventRecipe: this.eventRecipe,
+      eventTheme: this.eventTheme
     });
 
     console.log(this.events);
@@ -114,7 +100,7 @@ export class CalendarComponent implements OnInit {
     // clear the form data
     // this.event_title = '';
     // this.event_date = '';
-    this.event_theme = 'blue';
+    this.eventTheme = 'blue';
 
     //close the modal
     this.openEventModal = false;
@@ -123,18 +109,11 @@ export class CalendarComponent implements OnInit {
     // open the modal
     this.openEventModal = true;
     this.selectedDate = date;
-    this.event_date = new Date(this.year, this.month, date).toDateString();
+    this.recipeDate = new Date(this.year, this.month, date).toDateString();
   }
-  changeEvent(e: any){
-    console.log('e', e.value);
-    this.event_theme = e;
-  }
-  changeRecipe(e: any){
-    console.log('e', e.value);
-  }
-  test(date: number){      
+  getEventsForDate(date: number){      
     return this.events.filter(e => {
-      return e.event_date.toDateString() === new Date(this.year, this.month, date).toDateString();
+      return e.eventDate.toDateString() === new Date(this.year, this.month, date).toDateString();
     })
   }
   prevMonth(){
