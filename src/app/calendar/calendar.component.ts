@@ -130,7 +130,31 @@ export class CalendarComponent implements OnInit {
 
     this.selectedDate = date;
     this.recipeDate = new Date(this.year, this.month, date).toDateString();
-    
+
     this.openEventModal = true;
   }
+  // https://stackoverflow.com/questions/49986104/drag-event-not-firing-with-angular-2
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+  dragEventObj: any;
+  onDragStart(ev:any, event: any){
+    console.log('onDragStart', ev);
+    ev.dataTransfer.setData("text/plain", event);
+    ev.dataTransfer.dropEffect = "move";
+    this.dragEventObj = event;
+  }
+  onDragOver(ev: any) {
+    //console.log('onDragOver', ev);
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+   }  
+  onDropHandler(ev: any, date: number) {
+    console.log('onDropHandler', ev, date);
+    ev.preventDefault();
+    // Get the id of the target and add the moved element to the target's DOM
+    const data = ev.dataTransfer.getData("text/plain");
+    console.log('data', data);
+    //ev.target.appendChild(document.getElementById(data));
+    this.dragEventObj.eventDate = new Date(this.year, this.month, date);
+
+   }   
 }
