@@ -25,14 +25,12 @@ export class CalendarDayComponent implements OnInit {
   // @ts-ignore
   @Input() events: CalendarEvent[];
 
-  @Output() onDragOverEvent = new EventEmitter<string>();
-  @Output() onDropHandlerEvent = new EventEmitter<string>();
-  @Output() onDragStartEvent = new EventEmitter<string>();
+  @Output() onDragStartEvent = new EventEmitter<any>();
+  @Output() onDragOverEvent = new EventEmitter<any>();
+  @Output() onDropHandlerEvent = new EventEmitter<any>();
   @Output() onSelectDateEvent = new EventEmitter<any>();
   @Output() onSelectDate = new EventEmitter<number>();
 
-  // showEventModal - selectEvent
-  // selectRecipe - selectDate
   constructor() { 
   }
 
@@ -46,20 +44,23 @@ export class CalendarDayComponent implements OnInit {
     return today.toDateString() === d.toDateString() ? true : false;
   }
 
-  onDragOver(event: any){
-
-  }
-  onDropHandler(event: any, date: number){
-
-  }
-
-  onDragStart(event: any, calendarEvent: CalendarEvent){
-
-  }
   selectEvent(event: CalendarEvent, date: number){
     this.onSelectDateEvent.emit({...event, date});
   }
   selectDate(date: number){
     this.onSelectDate.emit(date);
   }
+
+  // dnd outputs
+  onDragOver(event: any){
+    this.onDragOverEvent.emit({event: event});
+  }
+  onDropHandler(event: any, date: number){
+    this.onDropHandlerEvent.emit({event: event, date: date});
+  }
+
+  onDragStart(dndEvent: any, calendarEvent: CalendarEvent){
+    this.onDragStartEvent.emit({dndEvent: dndEvent, calendarEvent: calendarEvent});
+  }
+  // end dnd outputs
 }

@@ -64,6 +64,9 @@
 								[events]="getEventsForDate(date)" 
 								(onSelectDate)="showEventModal($event)"
 								(onSelectDateEvent)="selectRecipe($event)"
+								(onDragStartEvent)="onDragStart($event)"
+								(onDropHandlerEvent)="onDropHandler($event)"
+								(onDragOverEvent)="onDragOver($event)"
 								style="width: 14.28%; height: 120px" 
 								class="px-4 pt-2 border-r border-b relative">
 							</app-calendar-day>

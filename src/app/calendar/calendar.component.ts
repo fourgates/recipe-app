@@ -48,7 +48,7 @@ export class CalendarComponent implements OnInit {
   // TODO - abstract this to an input
   events: CalendarEvent[] = [
     {
-      eventDate: new Date(2021, 3, 1),
+      eventDate: new Date(2021, 4, 4),
       eventSubject: this.recipes[0],
       eventTheme: this.themes[0]
     },
@@ -86,7 +86,6 @@ export class CalendarComponent implements OnInit {
   }
 
   addEvent(){ 
-    debugger;
     this.events.push({
       eventDate: new Date(this.year, this.month, this.selectedDate),
       eventSubject: this.eventRecipe,
@@ -135,25 +134,34 @@ export class CalendarComponent implements OnInit {
   // https://stackoverflow.com/questions/49986104/drag-event-not-firing-with-angular-2
   // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
   dragEventObj: any;
-  onDragStart(ev:any, event: any){
-    console.log('onDragStart', ev);
-    ev.dataTransfer.setData("text/plain", event);
+  onDragStart(dragEvent: any){
+    const ev = dragEvent.dndEvent;
+    const calendarEvent = dragEvent.calendarEvent;
+    this.debug('onDragStart', ev);
+    ev.dataTransfer.setData("text/plain", calendarEvent);
     ev.dataTransfer.dropEffect = "move";
-    this.dragEventObj = event;
+    this.dragEventObj = calendarEvent;
   }
-  onDragOver(ev: any) {
-    //console.log('onDragOver', ev);
-    ev.preventDefault();
-    ev.dataTransfer.dropEffect = "move";
+  onDragOver(dndEvent: any) {
+    this.debug('onDragOver', dndEvent);
+    dndEvent.event.preventDefault();
+    dndEvent.event.dataTransfer.dropEffect = "move";
    }  
-  onDropHandler(ev: any, date: number) {
-    console.log('onDropHandler', ev, date);
+  onDropHandler(dndEvent: any) {
+    const ev = dndEvent.event;
+    const date = dndEvent.date;
+    this.debug('onDropHandler', ev, date);
     ev.preventDefault();
     // Get the id of the target and add the moved element to the target's DOM
     const data = ev.dataTransfer.getData("text/plain");
-    console.log('data', data);
+    this.debug('data', data);
     //ev.target.appendChild(document.getElementById(data));
     this.dragEventObj.eventDate = new Date(this.year, this.month, date);
-
    }   
+  debugging = false;
+  private debug(message: string, ...args: any[]){
+    if(this.debugging){
+      console.log(message, args);
+    }
+   }
 }
