@@ -13,13 +13,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RecipeSearchComponent } from './recipe-search/recipe-search.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { FormsModule } from '@angular/forms';
+import { CalendarDayComponent } from './calendar/calendar-day/calendar-day.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipeComponent,
     RecipeSearchComponent,
-    CalendarComponent
+    CalendarComponent,
+    CalendarDayComponent
   ],
   imports: [
     BrowserModule,
