@@ -38,8 +38,8 @@
 				</div>	
 
 				<div class="-mx-1 -mb-1">
+					<!-- days of the week-->
 					<div class="flex flex-wrap" style="margin-bottom: -40px;">
-                        
                         <ng-container *ngFor="let day of DAYS">
                             <div style="width: 14.26%" class="px-2 py-2">
 								<div class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">
@@ -49,52 +49,24 @@
                         </ng-container>
 					</div>
 
+					<!-- blank days at the beginning of each month-->
 					<div class="flex flex-wrap border-t border-l">
 						<ng-container *ngFor="let blankday of blankdays">
-							<div 
-							style="width: 14.28%; height: 120px"
-							class="text-center border-r border-b px-4 pt-2">
+							<div style="width: 14.28%; height: 120px" class="text-center border-r border-b px-4 pt-2">
 						</div>
 						</ng-container>
 
 						<ng-container *ngFor="let date of noOfDays">	
-							<div 
+							<app-calendar-day 
+								[year]="year" 
+								[month]="month" 
+								[date]=date 
+								[events]="getEventsForDate(date)" 
+								(onSelectDate)="showEventModal($event)"
+								(onSelectDateEvent)="selectRecipe($event)"
 								style="width: 14.28%; height: 120px" 
-								class="px-4 pt-2 border-r border-b relative"
-								(dragover)="onDragOver($event)" 
-								(drop)="onDropHandler($event, date)"
-								>
-								<div
-									class="inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100"
-									[ngClass]="{'bg-blue-500 text-white': isToday(date) == true, 'text-gray-700 hover:bg-blue-200': isToday(date) == false }"
-									(click)="showEventModal(date)">
-									{{date}}
-								</div>
-								<div style="height: 80px;" class="overflow-y-auto mt-1">
-									<div 
-										class="absolute top-0 right-0 mt-2 mr-2 inline-flex items-center justify-center rounded-full text-sm w-6 h-6 bg-gray-700 text-white leading-none"
-										*ngIf="getEventsForDate(date).length > 0">
-										{{ getEventsForDate(date).length }}
-									</div>
-
-									<ng-container *ngFor="let event of getEventsForDate(date)">
-										<div
-										class="px-2 py-1 rounded-lg mt-1 overflow-hidden border cursor-pointer"
-										(click)="selectRecipe(event, date)"
-										draggable="true"
-										(dragstart)="onDragStart($event, event)"
-										[ngClass]="{
-											'border-blue-200 text-blue-800 bg-blue-100': event.eventTheme.value === 'blue',
-											'border-red-200 text-red-800 bg-red-100': event.eventTheme.value === 'red',
-											'border-yellow-200 text-yellow-800 bg-yellow-100': event.eventTheme.value === 'yellow',
-											'border-green-200 text-green-800 bg-green-100': event.eventTheme.value === 'green',
-											'border-purple-200 text-purple-800 bg-purple-100': event.eventTheme.value === 'purple'
-										}">
-											<p class="text-sm truncate leading-tight">{{event.eventRecipe.recipeName}}</p>
-										</div>	
-									</ng-container>							
-								</div>
-							</div>
+								class="px-4 pt-2 border-r border-b relative">
+							</app-calendar-day>
 						</ng-container>
 					</div>
 				</div>
@@ -126,7 +98,7 @@
 						<div class="relative">
 							<select [(ngModel)] ="eventRecipe" class="block appearance-none w-full bg-gray-200 border-2 border-gray-200 hover:border-gray-500 px-4 py-2 pr-8 rounded-lg leading-tight focus:outline-none focus:bg-white focus:border-blue-500 text-gray-700">
 								<ng-container *ngFor="let recipe of recipes">
-									<option [ngValue]="recipe">{{recipe.recipeName}}</option>
+									<option [ngValue]="recipe">{{recipe.description}}</option>
 								</ng-container>
 							</select>
 						</div>

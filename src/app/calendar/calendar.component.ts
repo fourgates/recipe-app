@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarEvent } from './calendar-day/calendar-day.component';
 
 @Component({
   selector: 'app-calendar',
@@ -22,8 +23,8 @@ export class CalendarComponent implements OnInit {
   eventRecipe :any;
 
   recipes = [
-    {recipeName: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1},
-    {recipeName: 'Cheeseburger', recipeId: 2}
+    {description: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1},
+    {description: 'Cheeseburger', recipeId: 2}
   ];
   themes = [
     {
@@ -43,10 +44,12 @@ export class CalendarComponent implements OnInit {
       label: "Other"
     }
   ];     
-  events = [
+
+  // TODO - abstract this to an input
+  events: CalendarEvent[] = [
     {
       eventDate: new Date(2021, 3, 1),
-      eventRecipe: this.recipes[0],
+      eventSubject: this.recipes[0],
       eventTheme: this.themes[0]
     },
   ];
@@ -81,17 +84,12 @@ export class CalendarComponent implements OnInit {
     this.blankdays = blankdaysArray;
     this.noOfDays = daysArray;    
   }
-  isToday(date: number) {
-    const today = new Date();
-    const d = new Date(this.year, this.month, date);
 
-    return today.toDateString() === d.toDateString() ? true : false;
-  }
   addEvent(){ 
     debugger;
     this.events.push({
       eventDate: new Date(this.year, this.month, this.selectedDate),
-      eventRecipe: this.eventRecipe,
+      eventSubject: this.eventRecipe,
       eventTheme: this.eventTheme
     });
 
@@ -111,7 +109,8 @@ export class CalendarComponent implements OnInit {
     this.selectedDate = date;
     this.recipeDate = new Date(this.year, this.month, date).toDateString();
   }
-  getEventsForDate(date: number){      
+  // TODO - make this a map instead
+  getEventsForDate(date: number): CalendarEvent[]{      
     return this.events.filter(e => {
       return e.eventDate.toDateString() === new Date(this.year, this.month, date).toDateString();
     })
@@ -124,12 +123,12 @@ export class CalendarComponent implements OnInit {
     this.month++; 
     this.getNoOfDays();
   }  
-  selectRecipe(e: any, date: number){
-    this.eventRecipe = e.eventRecipe;
-    this.eventTheme = e.eventTheme;
+  selectRecipe(event: any){
+    this.eventRecipe = event.eventRecipe;
+    this.eventTheme = event.eventTheme;
 
-    this.selectedDate = date;
-    this.recipeDate = new Date(this.year, this.month, date).toDateString();
+    this.selectedDate = event.date;
+    this.recipeDate = new Date(this.year, this.month, event.date).toDateString();
 
     this.openEventModal = true;
   }
