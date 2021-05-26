@@ -20,8 +20,9 @@ export class CalendarComponent implements OnInit {
   recipeDate: string | undefined;
   selectedDate: number | undefined;
   eventTheme :any;
-  eventRecipe :any;
+  eventSubject :any;
 
+  // TODO - abstract this to a service
   recipes = [
     {description: 'Personal Pizzas with Prosciutto, Artichokes, and Fresh Mozzarella', recipeId: 1},
     {description: 'Cheeseburger', recipeId: 2}
@@ -45,7 +46,7 @@ export class CalendarComponent implements OnInit {
     }
   ];     
 
-  // TODO - abstract this to an input
+  // TODO - abstract this to a service
   events: CalendarEvent[] = [
     {
       eventDate: new Date(2021, 4, 4),
@@ -63,7 +64,6 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getNoOfDays();
-
   }
 
   getNoOfDays(){
@@ -84,15 +84,17 @@ export class CalendarComponent implements OnInit {
     this.blankdays = blankdaysArray;
     this.noOfDays = daysArray;    
   }
-
+  // TODO - on close of modal clear ng models
+  // TODO - save recipe
+  // TODO - remove recipe
   addEvent(){ 
-    this.events.push({
-      eventDate: new Date(this.year, this.month, this.selectedDate),
-      eventSubject: this.eventRecipe,
-      eventTheme: this.eventTheme
-    });
+    // this.events.push({
+    //   eventDate: new Date(this.year, this.month, this.selectedDate),
+    //   eventSubject: this.eventSubject,
+    //   eventTheme: this.eventTheme
+    // });
 
-    console.log(this.events);
+    console.log('fineme', this.eventSubject);
 
     // clear the form data
     // this.event_title = '';
@@ -123,7 +125,9 @@ export class CalendarComponent implements OnInit {
     this.getNoOfDays();
   }  
   selectRecipe(event: any){
-    this.eventRecipe = event.eventRecipe;
+    console.log('event', event);
+    
+    this.eventSubject = event.eventSubject;
     this.eventTheme = event.eventTheme;
 
     this.selectedDate = event.date;
